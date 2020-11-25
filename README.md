@@ -102,5 +102,39 @@ print("Min(4,5): \(min(4,5))")
 print("Five power two: \(pow(5, 2))")
 print("Square root of 25: \(sqrt(25))")
 print("Log: \(log(0.5125))")
-
+// also trigonometry functions such as sin, cos, tan, asin, acos, atan, sinh, cosh, tanh
 ```  
+## Conditionals
+```Swift
+// conditionals
+var age2:Int = Int.random(in: 4...24)
+
+print("Age: \(age2 )")
+
+// if else statement
+if age2 < 5 {
+    print("Go to preschool")
+} else if age2 >= 5 && age2 <= 6 {
+    print("Go to kindergarten")
+}  else if age2 > 6 && age2 < 18 {
+    let grade:Int = age2 - 5
+    print("Go to \(grade) grade")
+} else {
+    print("What are you doing here? Go to college 🏫")
+}
+
+// conditions && ||
+var income:Double = 15000.0
+var gpa:Double = 3.7
+var getGrant: Bool = income < 18000 && gpa > 3
+
+print("Get grant: \(getGrant)")
+print("Get grant: \(!getGrant)")
+
+// ternary operator
+// same as javascript: condition ? value_if_true : value_if_false
+var canDrive: Bool = age2 >= 16 ? true : false
+print("Can he drive: \(canDrive)")
+
+// switch statement
+```
