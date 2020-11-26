@@ -137,4 +137,29 @@ var canDrive: Bool = age2 >= 16 ? true : false
 print("Can he drive: \(canDrive)")
 
 // switch statement
+// switch statement
+let ingredient: String = "Flour"
+
+switch ingredient {
+case "Sugar":
+    print("Start making the cake")
+case "Flour":
+    print("Let's do some pasta")
+default:
+    print("get some water")
+}
+
+// switch statement with range conditions
+let testScore: Int = Int.random(in: 0...100)
+
+switch testScore {
+case 93...100:
+    print("Great result, you passed with \(testScore) out of 100.")
+case 70...92:
+    print("You can do better, you passed with \(testScore) out of 100.")
+case 40...69:
+    print("Sorry, you failed the exam with \(testScore) out of 100.")
+default:
+    print("Sorry, repeat the test next year.")
+}
 ```
