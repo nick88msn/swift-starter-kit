@@ -105,6 +105,8 @@ print("Log: \(log(0.5125))")
 // also trigonometry functions such as sin, cos, tan, asin, acos, atan, sinh, cosh, tanh
 ```  
 ## Conditionals
+- if / else if / else
+- switch / case
 ```Swift
 // conditionals
 var age2:Int = Int.random(in: 4...24)
@@ -161,5 +163,53 @@ case 40...69:
     print("Sorry, you failed the exam with \(testScore) out of 100.")
 default:
     print("Sorry, repeat the test next year.")
+}
+```
+
+## Loops
+```Swift
+// for loops
+
+// array
+let list:Array = [1,2,3,4]
+
+for item in list {
+    print(item)
+}
+
+// range
+for i in 1...5 {
+    print(i)
+}
+
+// range with condition
+for i in 1...10 where i % 2 == 0 {
+    print("\(i) is a even number. ")
+}
+
+// range with stride
+for i in stride(from: 10, through: 2, by: -2){
+    print(i)
+}
+
+// foreach
+list.forEach{ print($0) }
+
+// While loops
+var i : Int = 1
+
+while i < 10 {
+    if i % 2 == 0 {
+        print(i)
+        i += 1
+        continue
+    } else {
+        if i == 7 {
+            break
+        } else {
+            i += 1
+            continue
+        }
+    }
 }
 ```
