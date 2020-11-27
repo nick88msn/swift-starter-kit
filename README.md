@@ -423,3 +423,128 @@ for i in (2..<20).reversed(){
 // to check if a value is contained in a range
 print("Check if five is in our range: \((5..<10).contains(5))")
 ```
+
+## [Arrays](https://docs.swift.org/swift-book/LanguageGuide/CollectionTypes.html)
+- Swift provides three primary collection types, known as:
+  - Arrays: ordered collections of values
+  - Sets: unordered collections of unique values
+  - Dictionaries: unordered collections of key-value associations
+```Swift
+/* Array
+    Arrays needs to have all the same datatype inside.
+*/
+
+var arr1: Array<Int> = []
+//alternatively
+var arr2 = [Int]()
+
+// check if an array is empty
+arr1.isEmpty
+arr2.isEmpty
+
+arr1 == arr2
+
+// add elements to an arrya
+arr1.append(5)
+
+// Check array length
+print(arr1.count)
+
+// Create an array with default values
+var arr3 = [Int](repeating: 0, count: 10)
+
+// Create a new array by adding one to the other
+var arr4 = arr1 + arr3
+print(arr4.count)
+
+// Creating an Array with an Array Literal
+var shoppingList : [String] = ["A","B","C","D"]
+print(shoppingList.count,shoppingList.contains("A"))
+
+var shorterShoppingList = ["A","B"]
+
+// Accessing Array values
+if shorterShoppingList.isEmpty{
+    print("Shopping list is empy, do you want to add some items?")
+    shorterShoppingList.append("C")
+    shorterShoppingList += ["D", "E"]
+} else {
+    print("You have exactly \(shorterShoppingList.count) items in your cart.")
+    print("Your first item is \(shorterShoppingList[0])")
+}
+
+print(shorterShoppingList)
+// Using subscript syntax to change an existing value at an existing index
+shorterShoppingList[0] = "Z"
+shorterShoppingList += ["D", "E"]
+shorterShoppingList[1...3] = ["J","K","L"]
+shorterShoppingList.remove(at: 0)
+shorterShoppingList.insert("H", at: 0)
+print(shorterShoppingList)
+
+// iterating over and array
+for item in shorterShoppingList{
+    print(item)
+}
+
+// iterate and manipulate
+let isItJ = shorterShoppingList.map {
+    (item: String) -> Bool in item == "J"
+}
+print(isItJ)
+
+// iterate and manage index
+for (index, value) in shorterShoppingList.enumerated(){
+    if index % 2 == 0{
+        print("\(index): " + `value`)
+    }
+}
+
+// DICTIONARIES
+let dic = [Int: String]()
+type(of: dic)
+dic.count   //this is an empty dictionary
+
+// Creating a Dictionary with a Dictionary Literal
+var airports : [String:String] = ["FCO": "Fiumicino", "CIA": "Ciampino"]
+airports.count
+airports.isEmpty
+
+// add items using subscript syntax
+airports["HTW"] = "Heatrow"
+airports["FCO"] = "Leonardo da Vinci"
+airports.updateValue("London Heatrow", forKey: "HTW")
+print(airports)
+
+// delete an instance using nil of the removeValue method
+airports["HTW"] = nil
+
+if airports["HTW"] != nil{
+    print("The airport is in the dictionary")
+} else {
+    print("The airport is not in the dictionary")
+}
+
+if let oldValue = airports.removeValue(forKey: "CIA"){
+    print("Removed \(oldValue)")
+} else {
+    print("The airport was already removed")
+}
+
+// Iterating over a dictionary
+for (key, value) in airports{
+    print(key, value)
+}
+
+for key in airports.keys{
+    print(key)
+}
+
+for values in airports.values{
+    print(values)
+}
+
+// To retrieve a list of all keys or values of the dictionery
+let airportCodes = [String](airports.keys)
+let airportNames = [String](airports.values)
+```
