@@ -414,6 +414,11 @@ if shorterShoppingList.isEmpty{
     print("Your first item is \(shorterShoppingList[0])")
 }
 
+// sorting an array
+shorterShoppingList.sort()
+shorterShoppingList.sort{$0 < $1}
+
+// remove insert append
 print(shorterShoppingList)
 // Using subscript syntax to change an existing value at an existing index
 shorterShoppingList[0] = "Z"
@@ -422,6 +427,18 @@ shorterShoppingList[1...3] = ["J","K","L"]
 shorterShoppingList.remove(at: 0)
 shorterShoppingList.insert("H", at: 0)
 print(shorterShoppingList)
+
+// nested array
+let nested = [["A","B","C"],["D","E","F"],["G","H","I"]]
+print(nested[1][0])
+var flattenArray = nested.joined()
+
+//filter an array
+print(flattenArray.filter{$0.contains("A")}.count)
+print(flattenArray.filter{$0 <= "C"})
+
+// check if all elements satisfy a condition
+print(flattenArray.allSatisfy({$0 > "A"}))
 
 // iterating over and array
 for item in shorterShoppingList{
@@ -433,6 +450,16 @@ let isItJ = shorterShoppingList.map {
     (item: String) -> Bool in item == "J"
 }
 print(isItJ)
+
+// create a new array modifying a previous one
+var arrNew = flattenArray.map{ "0_" + $0 }
+print(arrNew)
+
+// get the total sum of all the elements in an array
+let numList = [0,1,2,3,4,5,6,7,8,9]
+let totalSum = numList.reduce(0, +)
+let totalSumClosures = numList.reduce(0){ $0 + $1 }
+print(totalSumClosures)
 
 // iterate and manage index
 for (index, value) in shorterShoppingList.enumerated(){
