@@ -168,3 +168,207 @@ while i < 10 {
         }
     }
 }
+
+// repeat while
+let magicNumber: Int = Int.random(in: 0...10)
+var numberInterval: Array = [0,1,2,3,4,5,6,7,8,9,10]
+var guess: Int = 0
+var count: Int = 0
+
+repeat {
+    print("Current guess: \(guess)")
+    // try not to repeat the same random number inside our interval
+    if let index: Int = numberInterval.firstIndex(of: guess){
+        numberInterval.remove(at: index)
+    }
+    // guess another number ! means we are safe the interval is not empty
+    guess = numberInterval.randomElement()!
+    count += 1
+} while (magicNumber != guess)
+
+print("You have found the magic number: \(guess) in \(count) guesses")
+
+// Iterators
+var i1 = (1...5).makeIterator()
+
+while let i = i1.next(){
+    print(i)
+}
+
+// functions
+func getSum(x: Int, y: Int) -> Int {
+    return x + y
+}
+
+print("Sum is equal to: ",getSum(x: 2, y: 2))
+
+func getSumNotExplicit(_ x: Int,_ y: Int) -> Int {
+    return x + y
+}
+
+print("Sum is equal to: ",getSumNotExplicit(2, 2))
+
+// function with no arguments and that returns nothing
+func printTwo() -> Void {
+    print("Two is equal to 2")
+}
+
+printTwo()
+
+/* function overload
+        to overload a function means we are going to have two function with the same name
+        in this case we can do it as long as the function parameters and return types are different
+*/
+func getSum(x: Double, y: Double) -> Double {
+    print("This is the overload function")
+    return x + y
+}
+
+print("Sum is equal to: \(getSum(x: 5, y: 5))")
+print("Sum is equal to: \(getSum(x: 5.0, y: 5.0))")
+
+/*  Different from other programming languages is that in swift we cannot change the input parameter since it is initialize as a constant. So, something like:
+        func modify(x: Int) -> Void { x = 0 }
+    will throw an error since we are trying to modify an immutable variable.
+    
+    To work with the input variable create a new one and make a copy or initialize with a new value.
+    In alternative we can use inout, but with inout
+
+*/
+
+func changeMe(_ x: inout Int) -> Void {
+    x = 10
+    print("X is equal to: \(x)")
+}
+
+var chn: Int = 5
+changeMe(&chn)
+
+// If we just want to modify the value inside the function we could reinitialize them like so
+// also we can return multiple values with ease
+func twoMult(num: Int) -> (x: Int, y: Int) {
+    let x: Int = num * 2
+    let y: Int = num * 3
+    return (x,y)
+}
+
+
+let (x,y) = twoMult(num: 2)
+print(x,y)
+
+let mults = twoMult(num: 3)
+print(mults.x,mults.y)
+
+// what if we want to receive an unknown number of input value in our function
+// ... is the swift version of *args
+
+func multSums(_ argArray: Int ...) -> Int {
+    var sum = 0
+    for i in argArray{
+        sum += i
+    }
+    return sum
+}
+
+print("Sum is equal to: \(multSums(1,2,3,4,5))")
+
+// Recursion
+// aka the act of a function of calling its self
+
+func factorial(_ x:Int) -> Int{
+    var sum: Int = 0
+    if x == 1 {
+        return 1
+    } else {
+        sum = x * factorial(x - 1)
+        return sum
+    }
+}
+
+print("Factorial of 4: \(factorial(4))")
+
+// 1st sum = 4 * factorial(3) = 4 * 6 = 24
+// 2nd sum = 3 * factorial(2) = 3 * 2
+// 3rd sum = 2 * factorial(1) = 2 * 1
+// 4th iteration => return 1
+
+/*
+ Assign function to value and handles them like in JS
+*/
+
+func multByTwo(_ x:Int) -> Int{
+    return x * 2
+}
+
+var timesTwo = multByTwo
+
+print("Two times two is equal to: \(timesTwo(2))")
+
+// we can also pass a function into another function like in javscript
+
+func runFunc(_ f:() -> ()) {
+    f()
+}
+
+func print4() -> Void {
+    print("4")
+}
+
+runFunc(print4)
+
+// when these return actually something this construct is more clear
+func doMath(_ f: (Int) -> Int, _ x:Int){
+    print("Result is equal to: \(f(x))")
+}
+
+doMath(timesTwo, 2)
+
+// Let's see how a function can return another one
+
+func funcMaker(val:Int) -> (Int) -> Int {
+    func addVals(num1: Int) -> Int {
+        return num1 + val
+    }
+    return addVals
+}
+
+let sum = funcMaker(val: 2)
+type(of: sum)
+print("Two plus two 2+2= \(sum(2))")
+
+// Closures
+// A closure is a function that does not require a name or a function definition (Lambda function in python?)
+// It is a very deep concept with many ramification so read carefully https://docs.swift.org/swift-book/LanguageGuide/Closures.html
+
+var square: (Int) -> (Int) = { num in num * num }
+
+print("Square 5 is equal to: \(square(5))")
+
+// we can also reference any value outside of the closue
+let numbers = [ 10, 20, 30, 15, 22, 44, 55, 100]
+
+let sortedNumbers = numbers.sorted(by: { x , y in x < y })
+
+print(numbers, sortedNumbers)
+
+// we can iterate through an array withouth a for loop with map (as in Python!)
+let squaredNumbers = sortedNumbers.map {
+    (num: Int) -> String in "\(square(num))"
+}
+
+print(squaredNumbers)
+
+// Ranges
+// Ranges are usually called using from...to
+// by default they range from the starting value to, including, the ending one.
+// if we want to exclude the last number we should use from..<to
+// we can use range directly inside for loop and if we want to loop in reverse mode we could just
+
+for i in (2..<20).reversed(){
+    print(i)
+}
+
+// to check if a value is contained in a range
+print("Check if five is in our range: \((5..<10).contains(5))")
+
+// Array
