@@ -710,3 +710,107 @@ print("Lorem Ipsum Generator 🖥".split{ $0 == " " })    // with closures
 print("Luke Smith Arberola Santos".split(separator: " "))
 
 ```
+
+## Tuples
+- Tuples group multiple values into a single compound value. The values within a tuple can be of any type and don’t have to be of the same type as each other.
+
+```Swift
+let httpStatus: (String, Int) = ("Page not found", 404)
+
+// decompose a tuple into variables
+let (status, code) = httpStatus
+print(status)
+
+// ignore other variables with _
+let someLongTuple = ("Welcome a board", "AZ23145", 12, 155, 100)
+let (welcomingMessage, flightNumber, _, _, _) = someLongTuple
+print(welcomingMessage)
+
+// or access using the index number
+let wel = someLongTuple.0
+print(wel)
+
+// label  individual items in a tuple to access easier
+let keyTuple = (status: "Page not found", code: 404)
+print(keyTuple.status)
+```
+
+## Sets
+- Tuples group multiple values into a single compound value. The values within a tuple can be of any type and don’t have to be of the same type as each other.
+  
+```Swift
+let httpStatus: (String, Int) = ("Page not found", 404)
+
+// decompose a tuple into variables
+let (status, code) = httpStatus
+print(status)
+
+// ignore other variables with _
+let someLongTuple = ("Welcome a board", "AZ23145", 12, 155, 100)
+let (welcomingMessage, flightNumber, _, _, _) = someLongTuple
+print(welcomingMessage)
+
+// or access using the index number
+let wel = someLongTuple.0
+print(wel)
+
+// label  individual items in a tuple to access easier
+let keyTuple = (status: "Page not found", code: 404)
+print(keyTuple.status)
+
+// Sets
+// unordered lists of unique elements
+
+//create an empty set
+var myFirstSet = Set<Int>()
+myFirstSet.insert(1)
+myFirstSet.count
+
+var setFromList: Set<Int> = [0,1,2,3,4,5,0,1,2,3,4,5]
+print(setFromList)
+
+// remove duplicates from list like in python?
+var dupList = [0,1,2,3,4,5,0,1,2,3,4,5]
+var noDuplicates = Set(dupList.map{ $0 })
+print(dupList.count, noDuplicates.count)
+type(of: Array(noDuplicates))
+
+// sets methods (not different from array methods)
+print(noDuplicates.contains(2))
+print(noDuplicates.remove(3)!)
+print(noDuplicates.isEmpty)
+
+```
+
+## Enumeration
+- An enumeration defines a common type for a group of related values and enables you to work with those values in a type-safe way within your code.
+
+```Swift
+enum Options {
+    case option1(Int, Int, Int)
+    case option2(String, String, Int)
+    case option3(Bool)
+}
+
+var currentOption = Options.option1(20, 30, 10)
+
+currentOption = .option3(false)
+
+switch currentOption {
+case .option1(let parameter1, let parameter2, let parameter3):
+    print("You\'ve selected option 1 with the following parameters \(parameter1):\(parameter2):\(parameter3)")
+case .option2(let name, let address, let price):
+    print("Hi \(name), your order will be shipped to \(address) for \(price) extra.")
+case .option3(let selection):
+    print("You have selected \(selection) to pick the item at our delivery point.")
+}
+
+// Raw Values
+enum Drinks: Character {
+    case water = "💦"
+    case coffee = "☕️"
+    case wine = "🍷"
+}
+
+print(Drinks.wine.rawValue)
+```

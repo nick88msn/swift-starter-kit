@@ -128,3 +128,123 @@ print("Derek".filter{!"aeiou".contains( $0 )}) //remove the vowel
 // split a string into a list using a condition
 print("Lorem Ipsum Generator 🖥".split{ $0 == " " })    // with closures
 print("Luke Smith Arberola Santos".split(separator: " "))
+
+// TUPLES
+// Tuples group multiple values into a single compound value. The values within a tuple can be of any type and don’t have to be of the same type as each other.
+
+let httpStatus: (String, Int) = ("Page not found", 404)
+
+// decompose a tuple into variables
+let (status, code) = httpStatus
+print(status)
+
+// ignore other variables with _
+let someLongTuple = ("Welcome a board", "AZ23145", 12, 155, 100)
+let (welcomingMessage, flightNumber, _, _, _) = someLongTuple
+print(welcomingMessage)
+
+// or access using the index number
+let wel = someLongTuple.0
+print(wel)
+
+// label  individual items in a tuple to access easier
+let keyTuple = (status: "Page not found", code: 404)
+print(keyTuple.status)
+
+// Sets
+// unordered lists of unique elements
+
+//create an empty set
+var myFirstSet = Set<Int>()
+myFirstSet.insert(1)
+myFirstSet.count
+
+var setFromList: Set<Int> = [0,1,2,3,4,5,0,1,2,3,4,5]
+print(setFromList)
+
+// remove duplicates from list like in python?
+var dupList = [0,1,2,3,4,5,0,1,2,3,4,5]
+var noDuplicates = Set(dupList.map{ $0 })
+print(dupList.count, noDuplicates.count)
+type(of: Array(noDuplicates))
+
+// sets methods (not different from array methods)
+print(noDuplicates.contains(2))
+print(noDuplicates.remove(3)!)
+print(noDuplicates.isEmpty)
+
+// Enumeration
+enum Status: String {
+    case orderReceived
+    case elabOrder
+    case shipPrep
+    case shipped
+    case completed
+}
+
+var orderStatus = Status.orderReceived
+print(orderStatus, orderStatus.rawValue)
+type(of: orderStatus )
+orderStatus = .elabOrder
+print(orderStatus)
+
+//Matching Enumeration Values with a Switch Statement
+switch orderStatus {
+case .orderReceived:
+    print("Send an email for the new order")
+case .elabOrder:
+    print("Added a new order to the stack")
+default:
+    print("Order not found")
+}
+
+// Iterating over Enumeration Cases
+enum Beverages: CaseIterable {
+    case coffee, tea, water
+}
+
+let cases = Beverages.allCases.count
+
+print("Beverages available are \(cases)")
+
+for drink in Beverages.allCases {
+    switch drink {
+    case .coffee:
+        print("Coffee is coming ☕️")
+    case .tea:
+        print("Wait 5 minutes for a nice hot 🫖")
+    default:
+        print("While you wait you can get some 💦")
+    }
+}
+
+// Associated values
+//You can set a constant or variable to each case
+
+enum Options {
+    case option1(Int, Int, Int)
+    case option2(String, String, Int)
+    case option3(Bool)
+}
+
+var currentOption = Options.option1(20, 30, 10)
+
+currentOption = .option3(false)
+
+switch currentOption {
+case .option1(let parameter1, let parameter2, let parameter3):
+    print("You\'ve selected option 1 with the following parameters \(parameter1):\(parameter2):\(parameter3)")
+case .option2(let name, let address, let price):
+    print("Hi \(name), your order will be shipped to \(address) for \(price) extra.")
+case .option3(let selection):
+    print("You have selected \(selection) to pick the item at our delivery point.")
+}
+
+// Raw Values
+enum Drinks: Character {
+    case water = "💦"
+    case coffee = "☕️"
+    case wine = "🍷"
+}
+
+print(Drinks.wine.rawValue)
