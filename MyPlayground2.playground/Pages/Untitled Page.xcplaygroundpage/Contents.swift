@@ -248,3 +248,179 @@ enum Drinks: Character {
 }
 
 print(Drinks.wine.rawValue)
+
+// Optionals
+let possibleNumber = "123"
+let convertedNumber = Int(possibleNumber)
+
+type(of: convertedNumber)   //it's an optional int and not an int since the Int method may fail and return an optional
+
+var answer : String?
+type(of: answer)    // optional string with a nil value
+answer == nil ? print("The value is null") : print("The value is not null")
+
+// Error Handling
+enum ErrorsType: Error {
+    case error1
+    case error2
+    case error3
+}
+
+func makeAnError(num: Int) throws -> Error {
+    if num > 0 {
+        throw ErrorsType.error1
+    } else if num % 2 == 0 {
+        throw ErrorsType.error2
+    } else {
+        throw ErrorsType.error3
+    }
+}
+
+do {
+    try makeAnError(num: -3)
+} catch ErrorsType.error1 {
+    print("You\'ve raised an error")
+} catch ErrorsType.error3 {
+    print("You\'ve raised another error")
+} catch ErrorsType.error2 {
+    print("You\'ve raised another one")
+}
+
+// STRUCT
+struct Rectangle {
+    var height = 0.0
+    var width = 0.0
+    func area() -> Double {
+        let area = width * height
+        return area
+    }
+}
+
+let rectangle = Rectangle(height: 2.0, width: 3.0)
+type(of: rectangle)
+print("Rectangle area: \(rectangle.area())\nRectangle width: \(rectangle.width)\nRectangle height: \(rectangle.height)")
+
+// Classes
+
+class Warrior {
+    var name : String = "Warrior"
+    var health : Int = 100
+    var maxAttack: Int = 10
+    var maxBlock: Int = 10
+
+    init(_ name:String, _ health: Int, _ maxAttack: Int, _ maxBlock: Int){
+        self.name = name
+        self.health = health
+        self.maxAttack = maxAttack
+        self.maxBlock = maxBlock
+    }
+    
+    func attack() -> Int {
+        return Int.random(in: 1...self.maxAttack)
+    }
+    
+    func block() -> Int {
+        return Int.random(in: 1...self.maxBlock )
+    }
+}
+
+class Battle {
+    func startFight(_ warrior1: Warrior, _ warrior2: Warrior){
+        while true {
+            if(Battle.getAttackResult(warrior1, warrior2) == "Game Over"){
+                print("Game Over")
+                break
+            }
+            if(Battle.getAttackResult(warrior2, warrior1) == "Game Over"){
+                print("Game Over")
+                break
+            }
+        }
+    }
+    
+    // static function is a function that does not need to access self
+    static func getAttackResult(_ warriorA: Warrior, _ warriorB: Warrior) -> String {
+        // get the value of attack - block accessing the function of the two objects
+        let warrAAttAmount = warriorA.attack()
+        let warrBBlockAmount = warriorB.block()
+        // let's calculate the amount of damage that B received from A
+        var dmg2B = warrAAttAmount - warrBBlockAmount
+        dmg2B = dmg2B < 0 ? 0 : dmg2B
+        warriorB.health -= dmg2B
+        print("Warrior \(warriorA.name) attacks \(warriorB.name) and cause \(dmg2B) damages")
+        print("\(warriorB.name) is down to \(warriorB.health)")
+        if warriorB.health <= 0 {
+            print("\(warriorB.name) is dead. \(warriorA.name) wins!")
+            return "Game Over"
+        } else {
+            return "Fight Again"
+        }
+    }
+}
+
+// Protocols
+// A protocol defines a blueprint of methods, properties, and other requirements that suit a particular task or piece of functionality. The protocol can then be adopted by a class, structure, or enumeration to provide an actual implementation of those requirements. Any type that satisfies the requirements of a protocol is said to conform to that protocol.
+
+protocol Teleport {
+    func teleport() -> String
+}
+
+class CanTeleport: Teleport {
+    func teleport() -> String {
+        "Teleported away"
+    }
+}
+
+class CantTeleport: Teleport {
+    func teleport() -> String {
+        return "Teleport failed"
+    }
+}
+
+class MagicWarrior: Warrior {
+    var teleportChance:Int = 0
+    var teleportType = CanTeleport()
+    
+    init(_ name: String, _ health: Int, _ maxAttack: Int, _ maxBlock: Int, _ teleportChance: Int) {
+        super.init(name, health, maxAttack, maxBlock)
+        self.teleportChance = teleportChance
+    }
+    
+    override func block() -> Int {
+        let dodgeChance = Int.random(in: 1...100)
+        if dodgeChance < self.teleportChance {
+            print("\(self.name) teleported and dodged the attack!")
+            return 100
+        } else {
+            return super.block()
+        }
+    }
+}
+
+
+let thor = Warrior("Thor", 100, 40, 20)
+let loki = MagicWarrior("Loki", 100, 30, 30, 40)
+
+let battle = Battle()
+battle.startFight(thor, loki)
+
+
+// Extensions
+
+extension Double {
+    var km: Double {
+        return self * 1000
+    }
+    var m: Double{
+        return self
+    }
+    var cm: Double{
+        return self / 100
+    }
+    var mm: Double{
+        return self / 1000
+    }
+}
+
+let measure: Double = 1.0.km + 850.0.m + 1200.0.mm
+print(measure)
